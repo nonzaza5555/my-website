@@ -86,6 +86,38 @@
             });
         });
     </script>
+    <style>
+        /* Slider Specific Styles */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .product-slider-card {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 640px) {
+            .product-slider-card {
+                flex: 0 0 calc(50% - 12px);
+            }
+        }
+        @media (min-width: 1024px) {
+            .product-slider-card {
+                flex: 0 0 calc(25% - 18px);
+            }
+        }
+        .slider-nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .dark .slider-nav-btn {
+            background: rgba(38, 38, 38, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300">
 
@@ -99,7 +131,7 @@
                 <span class="material-icons">close</span>
             </button>
         </div>
-        
+
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-6">
             <div class="text-center py-12 text-text-muted-light dark:text-text-muted-dark font-thai">
                 ตะกร้าว่างเปล่า (Your cart is empty)
@@ -273,7 +305,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Beige knit sweater" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4685.JPG"/>
@@ -550,6 +582,157 @@
     </div>
 </section>
 
+<section class="py-24 bg-white dark:bg-surface-dark overflow-hidden" id="new-arrivals">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4 text-text-main-light dark:text-text-main-dark">New Arrivals</h2>
+                <div class="w-16 h-1 bg-primary rounded-full mb-4"></div>
+                <p class="text-text-muted-light dark:text-text-muted-dark font-thai">สินค้ามาใหม่ที่คุณไม่ควรพลาด</p>
+            </div>
+            <div class="flex gap-2">
+                <button id="prev-btn" class="slider-nav-btn w-12 h-12 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button id="next-btn" class="slider-nav-btn w-12 h-12 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-sm">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="product-slider" class="flex overflow-x-auto gap-6 no-scrollbar snap-x snap-mandatory scroll-smooth pb-8">
+            <!-- Card 1 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Black Sleeveless Top" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4983.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="101" data-name="Black Sleeveless Top" data-price="450" data-image="images/IMG_4983.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Tops</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Black Sleeveless Top</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">450฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Modern White Tee" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4982.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="102" data-name="Modern White Tee" data-price="390" data-image="images/IMG_4982.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Tops</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Modern White Tee</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">390฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Blue Casual Shirt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4981.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="103" data-name="Blue Casual Shirt" data-price="590" data-image="images/IMG_4981.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Shirts</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Blue Casual Shirt</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">590฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Striped Polo Shirt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4980.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="104" data-name="Striped Polo Shirt" data-price="650" data-image="images/IMG_4980.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Shirts</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Striped Polo Shirt</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">650฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Pink Summer Blouse" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4979.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="105" data-name="Pink Summer Blouse" data-price="420" data-image="images/IMG_4979.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Blouses</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Pink Summer Blouse</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">420฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Denim Mini Skirt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4977.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="106" data-name="Denim Mini Skirt" data-price="750" data-image="images/IMG_4977.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Skirts</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Denim Mini Skirt</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">750฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 7 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Green Knit Vest" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4976.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="107" data-name="Green Knit Vest" data-price="550" data-image="images/IMG_4976.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Knitwear</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Green Knit Vest</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">550฿</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 8 -->
+            <div class="product-slider-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Floral Print Skirt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4975.jpg"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="108" data-name="Floral Print Skirt" data-price="690" data-image="images/IMG_4975.jpg">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Skirts</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Floral Print Skirt</h3>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">690฿</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <footer class="bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 pt-16 pb-8" id="contact">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -720,14 +903,14 @@
 
         cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartSubtotal.innerText = `${subtotal}฿`;
-        
+
         if (couponApplied) {
             discountRow.classList.remove('hidden');
             cartDiscount.innerText = `-${discountVal}฿`;
         } else {
             discountRow.classList.add('hidden');
         }
-        
+
         cartTotal.innerText = `${total}฿`;
     }
 
@@ -737,18 +920,18 @@
             alert('Your cart is empty! (ตะกร้ายังว่างอยู่เลย)');
             return;
         }
-        
+
         checkoutBtn.disabled = true;
         const originalText = checkoutBtn.innerText;
         checkoutBtn.innerText = "กำลังดำเนินการ... (Processing...)";
         statusMsg.classList.add('hidden');
-        
+
         // Simulate API call
         setTimeout(() => {
             const isSuccess = Math.random() > 0.2; // 80% success rate
-            
+
             statusMsg.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'dark:bg-green-900/30', 'dark:text-green-300', 'dark:bg-red-900/30', 'dark:text-red-300', 'animate-pulse');
-            
+
             if (isSuccess) {
                 statusMsg.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900/30', 'dark:text-green-300');
                 statusMsg.innerText = "รับออเดอร์เรียบร้อย! เตรียมรอรับของสวยๆ ได้เลย เราจะรีบแพ็คส่งให้นะ 😊";
@@ -760,11 +943,11 @@
                 statusMsg.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-900/30', 'dark:text-red-300');
                 statusMsg.innerText = "การชำระเงินไม่สำเร็จ ไม่ต้องกังวลนะ ลองใหม่อีกครั้ง หรือทักแชทหาเราได้เลย";
             }
-            
+
             statusMsg.classList.remove('hidden');
             checkoutBtn.disabled = false;
             checkoutBtn.innerText = originalText;
-            
+
             // Hide message after 6 seconds
             setTimeout(() => {
                 statusMsg.classList.add('hidden');
@@ -797,5 +980,37 @@
     renderCart();
 </script>
 
+<script>
+    // Product Slider Functionality
+    const slider = document.getElementById('product-slider');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+    if (slider && prevBtn && nextBtn) {
+        const scrollAmount = () => {
+            if (window.innerWidth >= 1024) return slider.offsetWidth;
+            if (window.innerWidth >= 640) return slider.offsetWidth;
+            return slider.offsetWidth;
+        };
+
+        prevBtn.addEventListener('click', () => {
+            slider.scrollLeft -= scrollAmount();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollLeft += scrollAmount();
+        });
+
+        // Auto-hide buttons if not scrollable
+        const toggleButtons = () => {
+            prevBtn.style.display = slider.scrollLeft <= 0 ? 'none' : 'flex';
+            nextBtn.style.display = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 1 ? 'none' : 'flex';
+        };
+
+        slider.addEventListener('scroll', toggleButtons);
+        window.addEventListener('resize', toggleButtons);
+        toggleButtons();
+    }
+</script>
 </body>
 </html>
