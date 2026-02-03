@@ -89,6 +89,9 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark transition-colors duration-300">
 
+<!-- Global Status Message -->
+<div id="status-message" class="fixed top-24 left-1/2 -translate-x-1/2 z-[200] hidden min-w-[300px] p-4 rounded-2xl shadow-2xl text-sm font-thai text-center animate-in slide-in-from-top duration-300"></div>
+
 <!-- Cart Drawer -->
 <div id="cart-drawer" class="fixed inset-0 z-[100] invisible transition-all duration-300">
     <div id="cart-overlay" class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300"></div>
@@ -99,7 +102,7 @@
                 <span class="material-icons">close</span>
             </button>
         </div>
-        
+
         <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-6">
             <div class="text-center py-12 text-text-muted-light dark:text-text-muted-dark font-thai">
                 ตะกร้าว่างเปล่า (Your cart is empty)
@@ -122,15 +125,13 @@
                 </div>
             </div>
 
-            <div id="status-message" class="hidden p-3 rounded-lg text-sm font-thai text-center animate-pulse"></div>
-
             <div class="flex gap-2">
                 <input type="text" id="coupon-code" placeholder="Coupon Code (SAVE10)" class="flex-grow px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 border-none focus:ring-2 focus:ring-primary text-sm font-thai">
                 <button id="apply-coupon" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors">Apply</button>
             </div>
 
             <button id="checkout-btn" class="w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed">
-                สรุปยอดและชำระเงินอย่างปลอดภัย (Review & Pay Securely)
+                ชำระเงินด้วย PromptPay
             </button>
         </div>
     </div>
@@ -219,7 +220,7 @@
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12">
             <!-- Products will be here -->
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Casual black t-shirt on hanger" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4682.JPG"/>
                     <div class="absolute top-4 right-4 bg-white dark:bg-gray-900 px-2 py-1 rounded text-xs font-bold text-primary shadow-sm">-20%</div>
@@ -231,6 +232,19 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Tops</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Casual T-Shirt</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อยืดสีดำ ใส่สบาย สภาพดี</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">100฿</span>
                         <span class="text-sm line-through text-gray-400">150฿</span>
@@ -238,7 +252,7 @@
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Floral white blouse" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4683.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="2" data-name="Vintage Blouse" data-price="120" data-image="images/IMG_4683.JPG">
@@ -249,13 +263,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Blouses</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Vintage Blouse</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อลูกไม้ สไตล์วินเทจ น่ารักมาก</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">120฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Yellow summer dress" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4684.JPG"/>
                     <div class="absolute top-4 right-4 bg-accent-pink px-2 py-1 rounded text-xs font-bold text-white shadow-sm">HOT</div>
@@ -267,14 +294,27 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Dresses</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Summer Dress</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เดรสลายสก๊อต ใส่ไปเที่ยวทะเล</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">100฿</span>
                         <span class="text-sm line-through text-gray-400">200฿</span>
                     </div>
                 </div>
             </div>
-            
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Beige knit sweater" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4685.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="4" data-name="Cozy Knit Sweater" data-price="150" data-image="images/IMG_4685.JPG">
@@ -285,13 +325,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Knitwear</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Cozy Knit Sweater</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อไหมพรม อุ่นสบาย เหมาะกับหน้าหนาว</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">150฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Denim Jacket" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4686.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="5" data-name="Denim Jacket" data-price="180" data-image="images/IMG_4686.JPG">
@@ -302,13 +355,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Outerwear</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Denim Jacket</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">แจ็คเก็ตยีนส์ ทรงสวย แมทช์ได้ทุกลุค</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">180฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Red Sneakers" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4687.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="6" data-name="Classic Sneakers" data-price="150" data-image="images/IMG_4687.JPG">
@@ -319,6 +385,19 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Shoes</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Classic Sneakers</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">รองเท้าผ้าใบ สภาพ 95% พร้อมกล่อง</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">150฿</span>
                     </div>
@@ -326,7 +405,7 @@
             </div>
 
             <!-- More products following the same pattern -->
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Elegant Silk Scarf" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4688.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="7" data-name="Elegant Silk Scarf" data-price="120" data-image="images/IMG_4688.JPG">
@@ -337,13 +416,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Accessories</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Elegant Silk Scarf</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ผ้าพันคอผ้าไหม ดีไซน์หรู สภาพใหม่</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">120฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Cotton Chino Pants" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4689.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="8" data-name="Cotton Chino Pants" data-price="250" data-image="images/IMG_4689.JPG">
@@ -354,13 +446,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Bottoms</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Cotton Chino Pants</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">กางเกงชิโน ผ้าฝ้าย ทรงกระบอก ใส่สบาย</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">250฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Woolen Winter Beanie" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4690.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="9" data-name="Woolen Winter Beanie" data-price="80" data-image="images/IMG_4690.JPG">
@@ -371,13 +476,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Accessories</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Woolen Winter Beanie</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">หมวกไหมพรม กันหนาว สไตล์มินิมอล</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">80฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Classic Leather Belt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4691.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="10" data-name="Classic Leather Belt" data-price="150" data-image="images/IMG_4691.JPG">
@@ -388,13 +506,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Accessories</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Classic Leather Belt</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เข็มขัดหนังแท้ สีน้ำตาล สภาพเยี่ยม</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">150฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Oversized Street Hoodie" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4692.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="11" data-name="Oversized Street Hoodie" data-price="300" data-image="images/IMG_4692.JPG">
@@ -405,13 +536,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Tops</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Oversized Street Hoodie</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อฮู้ดดี้ ทรง Oversize ผ้านุ่มใส่สบาย</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">300฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Floral Pleated Skirt" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4693.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="12" data-name="Floral Pleated Skirt" data-price="180" data-image="images/IMG_4693.JPG">
@@ -422,13 +566,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Bottoms</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Floral Pleated Skirt</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">กระโปรงอัดพลีท ลายดอกไม้ สวยหวาน</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">180฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Natural Canvas Tote" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4694.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="13" data-name="Natural Canvas Tote" data-price="60" data-image="images/IMG_4694.JPG">
@@ -439,13 +596,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Accessories</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Natural Canvas Tote</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">กระเป๋าผ้าแคนวาส รักษ์โลก จุของได้เยอะ</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">60฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Polka Dot Summer Blouse" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4695.JPG"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="14" data-name="Polka Dot Summer Blouse" data-price="220" data-image="images/IMG_4695.JPG">
@@ -456,13 +626,26 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Blouses</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Polka Dot Summer Blouse</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อเบลาส์ลายจุด สไตล์หน้าร้อน</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">220฿</span>
                     </div>
                 </div>
             </div>
 
-            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+            <div class="product-card group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                 <div class="relative overflow-hidden aspect-[4/5]">
                     <img alt="Special Edition Item" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/jojo.png"/>
                     <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="15" data-name="Special Edition Item" data-price="450" data-image="images/jojo.png">
@@ -473,6 +656,19 @@
                     <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Limited</p>
                     <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Special Edition Item</h3>
                     <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">สินค้าคอลเลคชั่นพิเศษ Limited Edition</p>
+                    <div class="flex gap-2 mb-4">
+                        <select class="size-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                            <option value="XL">Size: XL</option>
+                        </select>
+                        <select class="color-select flex-1 text-xs bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded p-1 font-thai">
+                            <option value="Standard">Color: Std</option>
+                            <option value="Black">Color: Black</option>
+                            <option value="White">Color: White</option>
+                        </select>
+                    </div>
                     <div class="flex items-center justify-between">
                         <span class="text-xl font-bold text-accent-pink">450฿</span>
                     </div>
@@ -550,6 +746,71 @@
     </div>
 </section>
 
+<!-- PromptPay Modal -->
+<div id="promptpay-modal" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="relative bg-white dark:bg-surface-dark w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+        <!-- Header -->
+        <div class="bg-primary p-6 text-white flex justify-between items-center">
+            <div>
+                <h3 class="text-xl font-display font-bold">ชำระเงินด้วย PromptPay</h3>
+                <p class="text-xs opacity-80 font-thai">Scan QR Code to pay securely</p>
+            </div>
+            <button id="close-pp-modal" class="p-2 hover:bg-white/20 rounded-full transition-colors">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+
+        <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
+            <!-- Order Summary -->
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl space-y-3">
+                <h4 class="font-bold text-sm border-b border-gray-200 dark:border-gray-700 pb-2">สรุปรายการสั่งซื้อ</h4>
+                <div id="pp-order-summary" class="text-sm space-y-2 font-thai">
+                    <!-- Dynamic Summary -->
+                </div>
+            </div>
+
+            <!-- Merchant Info -->
+            <div class="text-center space-y-2">
+                <p class="text-xs text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest">Merchant: <span class="font-bold text-primary">STYLEHUB OFFICIAL</span></p>
+                <div class="flex justify-center">
+                    <div class="bg-white p-4 rounded-2xl shadow-inner border-2 border-primary/20">
+                        <img id="pp-qr-code" src="" alt="PromptPay QR Code" class="w-64 h-64 object-contain">
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <p class="text-2xl font-bold text-primary" id="pp-amount-display">0.00฿</p>
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark font-thai">STYLEHUB (081-234-5678)</p>
+                </div>
+            </div>
+
+            <!-- Upload Slip -->
+            <div class="space-y-3">
+                <label class="block text-sm font-bold font-thai">อัปโหลดสลิปการโอนเงิน (Required)</label>
+                <div class="relative group">
+                    <input type="file" id="slip-upload" accept="image/*" class="hidden">
+                    <label for="slip-upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover:border-primary transition-colors cursor-pointer bg-gray-50 dark:bg-gray-800/30">
+                        <div id="slip-preview-container" class="flex flex-col items-center justify-center">
+                            <span class="material-icons text-4xl text-gray-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 font-thai">คลิกเพื่อเลือกรูปภาพสลิป</p>
+                        </div>
+                        <img id="slip-preview" class="hidden h-full w-full object-contain p-2 rounded-xl">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-6 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
+            <button id="confirm-payment-btn" class="w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/30 flex items-center justify-center gap-2">
+                <span class="material-icons">verified</span>
+                ยืนยันการชำระเงินแล้ว
+            </button>
+            <p id="pp-error" class="hidden text-accent-pink text-xs text-center mt-3 font-thai">กรุณาอัปโหลดสลิปก่อนยืนยัน</p>
+        </div>
+    </div>
+</div>
+
 <footer class="bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 pt-16 pb-8" id="contact">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -617,6 +878,18 @@
     const checkoutBtn = document.getElementById('checkout-btn');
     const statusMsg = document.getElementById('status-message');
 
+    // PromptPay Modal Elements
+    const ppModal = document.getElementById('promptpay-modal');
+    const ppOrderSummary = document.getElementById('pp-order-summary');
+    const ppQrCode = document.getElementById('pp-qr-code');
+    const ppAmountDisplay = document.getElementById('pp-amount-display');
+    const ppCloseBtn = document.getElementById('close-pp-modal');
+    const ppConfirmBtn = document.getElementById('confirm-payment-btn');
+    const slipUpload = document.getElementById('slip-upload');
+    const slipPreview = document.getElementById('slip-preview');
+    const slipPreviewContainer = document.getElementById('slip-preview-container');
+    const ppError = document.getElementById('pp-error');
+
     // Toggle Cart Drawer
     function toggleCart() {
         const isVisible = !cartDrawer.classList.contains('invisible');
@@ -643,29 +916,34 @@
 
     // Add to Cart
     function addToCart(product) {
-        const existingItem = cart.find(item => item.id === product.id);
+        const existingItem = cart.find(item =>
+            item.id === product.id &&
+            item.size === product.size &&
+            item.color === product.color
+        );
         if (existingItem) {
             existingItem.quantity += 1;
         } else {
             cart.push({ ...product, quantity: 1 });
         }
         saveCart();
+        renderCart();
         if (cartDrawer.classList.contains('invisible')) toggleCart();
     }
 
     // Remove from Cart
-    function removeFromCart(id) {
-        cart = cart.filter(item => item.id !== id);
+    function removeFromCart(id, size, color) {
+        cart = cart.filter(item => !(item.id === id && item.size === size && item.color === color));
         saveCart();
     }
 
     // Update Quantity
-    function updateQuantity(id, change) {
-        const item = cart.find(item => item.id === id);
+    function updateQuantity(id, size, color, change) {
+        const item = cart.find(item => item.id === id && item.size === size && item.color === color);
         if (item) {
             item.quantity += change;
             if (item.quantity <= 0) {
-                removeFromCart(id);
+                removeFromCart(id, size, color);
             } else {
                 saveCart();
             }
@@ -693,20 +971,23 @@
                     ตะกร้าว่างเปล่า (Your cart is empty)
                 </div>
             `;
+            checkoutBtn.classList.add('hidden');
         } else {
+            checkoutBtn.classList.remove('hidden');
             cartItemsContainer.innerHTML = cart.map(item => `
                 <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
                     <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
                     <div class="flex-grow">
                         <h4 class="font-bold text-sm dark:text-white">${item.name}</h4>
+                        <p class="text-[10px] text-text-muted-light dark:text-text-muted-dark uppercase font-medium">Size: ${item.size} | Color: ${item.color}</p>
                         <p class="text-primary font-bold text-sm">${item.price}฿</p>
                         <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-md text-xs">-</button>
+                            <button onclick="updateQuantity('${item.id}', '${item.size}', '${item.color}', -1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-md text-xs">-</button>
                             <span class="text-sm font-medium w-4 text-center">${item.quantity}</span>
-                            <button onclick="updateQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-md text-xs">+</button>
+                            <button onclick="updateQuantity('${item.id}', '${item.size}', '${item.color}', 1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-md text-xs">+</button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-accent-pink transition-colors">
+                    <button onclick="removeFromCart('${item.id}', '${item.size}', '${item.color}')" class="text-gray-400 hover:text-accent-pink transition-colors">
                         <span class="material-icons text-xl">delete</span>
                     </button>
                 </div>
@@ -720,57 +1001,129 @@
 
         cartCount.innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartSubtotal.innerText = `${subtotal}฿`;
-        
+
         if (couponApplied) {
             discountRow.classList.remove('hidden');
             cartDiscount.innerText = `-${discountVal}฿`;
         } else {
             discountRow.classList.add('hidden');
         }
-        
+
         cartTotal.innerText = `${total}฿`;
     }
 
-    // Process Checkout Simulation
+    // Process Checkout Simulation -> Open PromptPay Modal
     function processCheckout() {
         if (cart.length === 0) {
             alert('Your cart is empty! (ตะกร้ายังว่างอยู่เลย)');
             return;
         }
-        
-        checkoutBtn.disabled = true;
-        const originalText = checkoutBtn.innerText;
-        checkoutBtn.innerText = "กำลังดำเนินการ... (Processing...)";
-        statusMsg.classList.add('hidden');
-        
-        // Simulate API call
-        setTimeout(() => {
-            const isSuccess = Math.random() > 0.2; // 80% success rate
-            
-            statusMsg.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'dark:bg-green-900/30', 'dark:text-green-300', 'dark:bg-red-900/30', 'dark:text-red-300', 'animate-pulse');
-            
-            if (isSuccess) {
-                statusMsg.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900/30', 'dark:text-green-300');
-                statusMsg.innerText = "รับออเดอร์เรียบร้อย! เตรียมรอรับของสวยๆ ได้เลย เราจะรีบแพ็คส่งให้นะ 😊";
-                cart = [];
-                saveCart();
-                couponApplied = false;
-                couponInput.value = '';
-            } else {
-                statusMsg.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-900/30', 'dark:text-red-300');
-                statusMsg.innerText = "การชำระเงินไม่สำเร็จ ไม่ต้องกังวลนะ ลองใหม่อีกครั้ง หรือทักแชทหาเราได้เลย";
+
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const discountVal = couponApplied ? Math.round(subtotal * 0.1) : 0;
+        const shipping = 50;
+        const netTotal = subtotal - discountVal + shipping;
+
+        // Populate Summary
+        ppOrderSummary.innerHTML = `
+            <div class="space-y-1">
+                ${cart.map(item => `
+                    <div class="flex justify-between">
+                        <span>${item.name} (${item.size}, ${item.color}) x ${item.quantity}</span>
+                        <span>${item.price * item.quantity}฿</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2 space-y-1">
+                <div class="flex justify-between text-xs">
+                    <span>ยอดรวมสินค้า</span>
+                    <span>${subtotal}฿</span>
+                </div>
+                ${discountVal > 0 ? `<div class="flex justify-between text-xs text-accent-pink"><span>ส่วนลด</span><span>-${discountVal}฿</span></div>` : ''}
+                <div class="flex justify-between text-xs">
+                    <span>ค่าจัดส่ง</span>
+                    <span>${shipping}฿</span>
+                </div>
+                <div class="flex justify-between font-bold text-primary pt-1 border-t border-dotted border-gray-300">
+                    <span>ยอดสุทธิที่ต้องชำระ</span>
+                    <span>${netTotal}฿</span>
+                </div>
+            </div>
+        `;
+
+        // Update Amount Display
+        ppAmountDisplay.innerText = `${netTotal.toFixed(2)}฿`;
+
+        // Generate QR Code (using promptpay.io for demo)
+        // Format: https://promptpay.io/PHONE_OR_ID/AMOUNT
+        const merchantId = "0812345678";
+        ppQrCode.src = `https://promptpay.io/${merchantId}/${netTotal}`;
+
+        // Reset slip upload
+        slipUpload.value = "";
+        slipPreview.classList.add('hidden');
+        slipPreviewContainer.classList.remove('hidden');
+        ppError.classList.add('hidden');
+        ppConfirmBtn.disabled = false;
+        ppConfirmBtn.innerText = "ยืนยันการชำระเงินแล้ว";
+        ppConfirmBtn.classList.replace('bg-green-500', 'bg-primary');
+
+        // Show Modal
+        ppModal.classList.remove('hidden');
+        toggleCart(); // Close drawer
+    }
+
+    function closePPModal() {
+        ppModal.classList.add('hidden');
+    }
+
+    // Handle slip upload preview
+    slipUpload.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                slipPreview.src = e.target.result;
+                slipPreview.classList.remove('hidden');
+                slipPreviewContainer.classList.add('hidden');
+                ppError.classList.add('hidden');
             }
-            
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Confirm Payment
+    ppConfirmBtn.addEventListener('click', function() {
+        if (!slipUpload.files || !slipUpload.files[0]) {
+            ppError.classList.remove('hidden');
+            return;
+        }
+
+        this.disabled = true;
+        this.innerText = "กำลังตรวจสอบ... (Waiting for verification)";
+        this.classList.replace('bg-primary', 'bg-green-500');
+
+        // Show success status in cart/statusMsg
+        setTimeout(() => {
             statusMsg.classList.remove('hidden');
-            checkoutBtn.disabled = false;
-            checkoutBtn.innerText = originalText;
-            
-            // Hide message after 6 seconds
+            statusMsg.classList.add('bg-blue-100', 'text-blue-800', 'dark:bg-blue-900/30', 'dark:text-blue-300');
+            statusMsg.innerText = "รอตรวจสอบการชำระเงิน (Waiting for payment verification)";
+
+            // Clear cart after successful "upload"
+            cart = [];
+            saveCart();
+            couponApplied = false;
+
+            setTimeout(() => {
+                closePPModal();
+            }, 2000);
+
+            // Hide status message after 6 seconds
             setTimeout(() => {
                 statusMsg.classList.add('hidden');
             }, 6000);
         }, 1500);
-    }
+    });
 
     // Event Listeners
     cartBtn.addEventListener('click', toggleCart);
@@ -778,16 +1131,29 @@
     cartOverlay.addEventListener('click', toggleCart);
     applyCouponBtn.addEventListener('click', applyCoupon);
     checkoutBtn.addEventListener('click', processCheckout);
+    ppCloseBtn.addEventListener('click', closePPModal);
 
     // Delegate "Add to Cart" button clicks
     document.addEventListener('click', (e) => {
         const btn = e.target.closest('.add-to-cart-btn');
         if (btn) {
+            const id = btn.getAttribute('data-id');
+            const name = btn.getAttribute('data-name');
+            const price = parseInt(btn.getAttribute('data-price'));
+            const image = btn.getAttribute('data-image');
+
+            // Get selected size and color from the same product card
+            const card = btn.closest('.product-card');
+            const size = card.querySelector('.size-select').value;
+            const color = card.querySelector('.color-select').value;
+
             const product = {
-                id: btn.dataset.id,
-                name: btn.dataset.name,
-                price: parseInt(btn.dataset.price),
-                image: btn.dataset.image
+                id,
+                name,
+                price,
+                image,
+                size,
+                color
             };
             addToCart(product);
         }
