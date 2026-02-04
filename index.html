@@ -130,8 +130,62 @@
             </div>
 
             <button id="checkout-btn" class="w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed">
-                สรุปยอดและชำระเงินอย่างปลอดภัย (Review & Pay Securely)
+                ชำระเงินด้วย PromptPay
             </button>
+        </div>
+    </div>
+</div>
+
+<!-- PromptPay Modal -->
+<div id="promptpay-modal" class="fixed inset-0 z-[110] hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="relative bg-white dark:bg-surface-dark w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+        <div class="bg-primary p-6 text-white flex justify-between items-center">
+            <div>
+                <h3 class="text-xl font-display font-bold">ชำระเงินด้วย PromptPay</h3>
+                <p class="text-xs opacity-80 font-thai">Scan QR Code to pay securely</p>
+            </div>
+            <button id="close-pp-modal" class="p-2 hover:bg-white/20 rounded-full transition-colors">
+                <span class="material-icons">close</span>
+            </button>
+        </div>
+        <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
+            <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl space-y-3">
+                <h4 class="font-bold text-sm border-b border-gray-200 dark:border-gray-700 pb-2">สรุปรายการสั่งซื้อ</h4>
+                <div id="pp-order-summary" class="text-sm space-y-2 font-thai"></div>
+            </div>
+            <div class="text-center space-y-2">
+                <p class="text-xs text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest">Merchant: <span class="font-bold text-primary">STYLEHUB OFFICIAL</span></p>
+                <div class="flex justify-center">
+                    <div class="bg-white p-4 rounded-2xl shadow-inner border-2 border-primary/20">
+                        <img id="pp-qr-code" src="" alt="PromptPay QR Code" class="w-64 h-64 object-contain">
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <p class="text-2xl font-bold text-primary" id="pp-amount-display">0.00฿</p>
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark font-thai">STYLEHUB (063-116-6257)</p>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <label class="block text-sm font-bold font-thai">อัปโหลดสลิปการโอนเงิน (Required)</label>
+                <div class="relative group">
+                    <input type="file" id="slip-upload" accept="image/*" class="hidden">
+                    <label for="slip-upload" class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl hover:border-primary transition-colors cursor-pointer bg-gray-50 dark:bg-gray-800/30">
+                        <div id="slip-preview-container" class="flex flex-col items-center justify-center">
+                            <span class="material-icons text-4xl text-gray-400 group-hover:text-primary transition-colors">cloud_upload</span>
+                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400 font-thai">คลิกเพื่อเลือกรูปภาพสลิป</p>
+                        </div>
+                        <img id="slip-preview" class="hidden h-full w-full object-contain p-2 rounded-xl">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="p-6 bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700">
+            <button id="confirm-payment-btn" class="w-full py-4 bg-primary hover:bg-primary-hover text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-primary/30 flex items-center justify-center gap-2">
+                <span class="material-icons">verified</span>
+                ยืนยันการชำระเงินแล้ว
+            </button>
+            <p id="pp-error" class="hidden text-accent-pink text-xs text-center mt-3 font-thai">กรุณาอัปโหลดสลิปก่อนยืนยัน</p>
         </div>
     </div>
 </div>
@@ -479,6 +533,125 @@
                 </div>
             </div>
 
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 1" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4975.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="16" data-name="Premium Fashion Item 1" data-price="280" data-image="images/IMG_4975.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 1</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">สินค้าพรีเมียม คุณภาพดี สภาพเยี่ยม</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">280฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 2" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4976.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="17" data-name="Premium Fashion Item 2" data-price="320" data-image="images/IMG_4976.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 2</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อผ้าแนวนอก สไตล์ทันสมัย ราคาดี</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">320฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 3" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4977.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="18" data-name="Premium Fashion Item 3" data-price="290" data-image="images/IMG_4977.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 3</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ชุดสวย หรูหรา มาแต่ต่างประเทศ</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">290฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 4" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4979.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="19" data-name="Premium Fashion Item 4" data-price="310" data-image="images/IMG_4979.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 4</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ผ้าแท้ สวม ใส่สบาย พร้อมจัดส่ง</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">310฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 5" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4980.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="20" data-name="Premium Fashion Item 5" data-price="270" data-image="images/IMG_4980.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 5</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อผ้าญี่ปุ่น ราคาเป็นธรรม สินค้าช้อป</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">270฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 6" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4981.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="21" data-name="Premium Fashion Item 6" data-price="300" data-image="images/IMG_4981.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 6</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อกันหนาว อุ่นสบาย ใส่ทั่ว</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">300฿</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div class="relative overflow-hidden aspect-[4/5]">
+                    <img alt="Premium Fashion Item 7" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4982.JPG"/>
+                    <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="22" data-name="Premium Fashion Item 7" data-price="330" data-image="images/IMG_4982.JPG">
+                        <span class="material-icons text-xl">add_shopping_cart</span>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Trending</p>
+                    <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Premium Fashion Item 7</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">เสื้อผ้ากระโปรง ลายสวย ทันสมัย</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xl font-bold text-accent-pink">330฿</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -617,6 +790,18 @@
     const checkoutBtn = document.getElementById('checkout-btn');
     const statusMsg = document.getElementById('status-message');
 
+    // PromptPay Modal Elements
+    const ppModal = document.getElementById('promptpay-modal');
+    const ppOrderSummary = document.getElementById('pp-order-summary');
+    const ppQrCode = document.getElementById('pp-qr-code');
+    const ppAmountDisplay = document.getElementById('pp-amount-display');
+    const ppCloseBtn = document.getElementById('close-pp-modal');
+    const ppConfirmBtn = document.getElementById('confirm-payment-btn');
+    const slipUpload = document.getElementById('slip-upload');
+    const slipPreview = document.getElementById('slip-preview');
+    const slipPreviewContainer = document.getElementById('slip-preview-container');
+    const ppError = document.getElementById('pp-error');
+
     // Toggle Cart Drawer
     function toggleCart() {
         const isVisible = !cartDrawer.classList.contains('invisible');
@@ -686,14 +871,15 @@
 
     // Render Cart UI
     function renderCart() {
-        // Update items list
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = `
                 <div class="text-center py-12 text-text-muted-light dark:text-text-muted-dark font-thai">
                     ตะกร้าว่างเปล่า (Your cart is empty)
                 </div>
             `;
+            checkoutBtn.classList.add('hidden');
         } else {
+            checkoutBtn.classList.remove('hidden');
             cartItemsContainer.innerHTML = cart.map(item => `
                 <div class="flex items-center gap-4 bg-gray-50 dark:bg-gray-800/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
                     <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
@@ -713,7 +899,6 @@
             `).join('');
         }
 
-        // Update Totals
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const discountVal = couponApplied ? Math.round(subtotal * 0.1) : 0;
         const total = subtotal - discountVal;
@@ -731,46 +916,101 @@
         cartTotal.innerText = `${total}฿`;
     }
 
-    // Process Checkout Simulation
     function processCheckout() {
         if (cart.length === 0) {
             alert('Your cart is empty! (ตะกร้ายังว่างอยู่เลย)');
             return;
         }
-        
-        checkoutBtn.disabled = true;
-        const originalText = checkoutBtn.innerText;
-        checkoutBtn.innerText = "กำลังดำเนินการ... (Processing...)";
-        statusMsg.classList.add('hidden');
-        
-        // Simulate API call
-        setTimeout(() => {
-            const isSuccess = Math.random() > 0.2; // 80% success rate
-            
-            statusMsg.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800', 'dark:bg-green-900/30', 'dark:text-green-300', 'dark:bg-red-900/30', 'dark:text-red-300', 'animate-pulse');
-            
-            if (isSuccess) {
-                statusMsg.classList.add('bg-green-100', 'text-green-800', 'dark:bg-green-900/30', 'dark:text-green-300');
-                statusMsg.innerText = "รับออเดอร์เรียบร้อย! เตรียมรอรับของสวยๆ ได้เลย เราจะรีบแพ็คส่งให้นะ 😊";
-                cart = [];
-                saveCart();
-                couponApplied = false;
-                couponInput.value = '';
-            } else {
-                statusMsg.classList.add('bg-red-100', 'text-red-800', 'dark:bg-red-900/30', 'dark:text-red-300');
-                statusMsg.innerText = "การชำระเงินไม่สำเร็จ ไม่ต้องกังวลนะ ลองใหม่อีกครั้ง หรือทักแชทหาเราได้เลย";
-            }
-            
-            statusMsg.classList.remove('hidden');
-            checkoutBtn.disabled = false;
-            checkoutBtn.innerText = originalText;
-            
-            // Hide message after 6 seconds
-            setTimeout(() => {
-                statusMsg.classList.add('hidden');
-            }, 6000);
-        }, 1500);
+
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const discountVal = couponApplied ? Math.round(subtotal * 0.1) : 0;
+        const shipping = 50;
+        const netTotal = subtotal - discountVal + shipping;
+
+        ppOrderSummary.innerHTML = `
+            <div class="space-y-1">
+                ${cart.map(item => `
+                    <div class="flex justify-between">
+                        <span>${item.name} x ${item.quantity}</span>
+                        <span>${item.price * item.quantity}฿</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2 space-y-1">
+                <div class="flex justify-between text-xs">
+                    <span>ยอดรวมสินค้า</span>
+                    <span>${subtotal}฿</span>
+                </div>
+                ${discountVal > 0 ? `<div class="flex justify-between text-xs text-accent-pink"><span>ส่วนลด</span><span>-${discountVal}฿</span></div>` : ''}
+                <div class="flex justify-between text-xs">
+                    <span>ค่าจัดส่ง</span>
+                    <span>${shipping}฿</span>
+                </div>
+                <div class="flex justify-between font-bold text-primary pt-1 border-t border-dotted border-gray-300">
+                    <span>ยอดสุทธิที่ต้องชำระ</span>
+                    <span>${netTotal}฿</span>
+                </div>
+            </div>
+        `;
+
+        ppAmountDisplay.innerText = `${netTotal.toFixed(2)}฿`;
+        const merchantId = "0631166257"; 
+        ppQrCode.src = `https://promptpay.io/${merchantId}/${netTotal}`;
+
+        slipUpload.value = "";
+        slipPreview.classList.add('hidden');
+        slipPreviewContainer.classList.remove('hidden');
+        ppError.classList.add('hidden');
+        ppConfirmBtn.disabled = false;
+        ppConfirmBtn.innerText = "ยืนยันการชำระเงินแล้ว";
+
+        ppModal.classList.remove('hidden');
+        toggleCart();
     }
+
+    function closePPModal() {
+        ppModal.classList.add('hidden');
+    }
+
+    slipUpload.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                slipPreview.src = e.target.result;
+                slipPreview.classList.remove('hidden');
+                slipPreviewContainer.classList.add('hidden');
+                ppError.classList.add('hidden');
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    ppConfirmBtn.addEventListener('click', function() {
+        if (!slipUpload.files || !slipUpload.files[0]) {
+            ppError.classList.remove('hidden');
+            return;
+        }
+
+        this.disabled = true;
+        this.innerText = "กำลังตรวจสอบ...";
+        
+        setTimeout(() => {
+            statusMsg.classList.remove('hidden');
+            statusMsg.classList.add('bg-blue-100', 'text-blue-800', 'dark:bg-blue-900/30', 'dark:text-blue-300');
+            statusMsg.innerText = "รอตรวจสอบการชำระเงิน (Waiting for payment verification)";
+            
+            cart = [];
+            saveCart();
+            couponApplied = false;
+            
+            setTimeout(() => {
+                closePPModal();
+                statusMsg.classList.add('hidden');
+                statusMsg.classList.remove('bg-blue-100', 'text-blue-800', 'dark:bg-blue-900/30', 'dark:text-blue-300');
+            }, 4000);
+        }, 1500);
+    });
 
     // Event Listeners
     cartBtn.addEventListener('click', toggleCart);
@@ -778,6 +1018,7 @@
     cartOverlay.addEventListener('click', toggleCart);
     applyCouponBtn.addEventListener('click', applyCoupon);
     checkoutBtn.addEventListener('click', processCheckout);
+    ppCloseBtn.addEventListener('click', closePPModal);
 
     // Delegate "Add to Cart" button clicks
     document.addEventListener('click', (e) => {
