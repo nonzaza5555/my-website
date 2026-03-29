@@ -42,6 +42,13 @@
     <style>
         html { scroll-behavior: smooth; }
         .font-thai { font-family: 'Prompt', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -777,6 +784,188 @@
     </div>
 </section>
 
+<section class="py-24 bg-surface-light dark:bg-surface-dark overflow-hidden" id="jewelry">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4 text-text-main-light dark:text-text-main-dark">Jewelry Collection</h2>
+                <div class="w-16 h-1 bg-primary rounded-full mb-4"></div>
+                <p class="text-text-muted-light dark:text-text-muted-dark font-thai">เครื่องประดับดีไซน์สวยหรู เสริมเสน่ห์ให้คุณ</p>
+            </div>
+            <div class="flex gap-4">
+                <button id="slider-prev" class="p-3 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-primary hover:text-white transition-all duration-300">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button id="slider-next" class="p-3 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-primary hover:text-white transition-all duration-300">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="product-slider" class="flex gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth pb-4">
+            <!-- Product 16 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Elegant Pearl Studs" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4975.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="16" data-name="Elegant Pearl Studs" data-price="350" data-image="images/IMG_4975.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Elegant Pearl Studs</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูมุก เรียบหรู ดูแพง</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">350฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 17 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Blue Blossom Earrings" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4976.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="17" data-name="Blue Blossom Earrings" data-price="280" data-image="images/IMG_4976.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Blue Blossom Earrings</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูลายดอกไม้สีฟ้า สดใส</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">280฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 18 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Azure Drop Earrings" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4977.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="18" data-name="Azure Drop Earrings" data-price="420" data-image="images/IMG_4977.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Azure Drop Earrings</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูระย้าสีน้ำเงิน สง่างาม</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">420฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 19 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Geometric Gold Dangles" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4979.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="19" data-name="Geometric Gold Dangles" data-price="390" data-image="images/IMG_4979.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Geometric Gold Dangles</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูทองลายเรขาคณิต ทันสมัย</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">390฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 20 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Pearl Cluster Studs" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4980.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="20" data-name="Pearl Cluster Studs" data-price="450" data-image="images/IMG_4980.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Pearl Cluster Studs</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูมุกแบบกลุ่ม สวยสะดุดตา</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">450฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 21 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Floral Pendulum Earrings" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4981.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="21" data-name="Floral Pendulum Earrings" data-price="320" data-image="images/IMG_4981.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Floral Pendulum Earrings</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูรูปทรงลูกตุ้ม ลายดอกไม้</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">320฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 22 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Sapphire Sparkle Studs" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4982.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="22" data-name="Sapphire Sparkle Studs" data-price="550" data-image="images/IMG_4982.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Sapphire Sparkle Studs</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูแซฟไฟร์ ประกายระยิบระยับ</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">550฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 23 -->
+            <div class="flex-none w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start">
+                <div class="group bg-background-light dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img alt="Minimalist Gold Drops" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" src="images/IMG_4983.jpg"/>
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white dark:bg-gray-900 p-2 rounded-full shadow-lg translate-y-12 group-hover:translate-y-0 transition-transform duration-300 text-primary hover:text-accent-pink" data-id="23" data-name="Minimalist Gold Drops" data-price="250" data-image="images/IMG_4983.jpg">
+                            <span class="material-icons text-xl">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-1 uppercase tracking-wider">Earrings</p>
+                        <h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark mb-2">Minimalist Gold Drops</h3>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark mb-4 font-thai line-clamp-1">ต่างหูทองหยดน้ำ เรียบง่ายแต่เก๋</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xl font-bold text-accent-pink">250฿</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="py-24 bg-background-light dark:bg-background-dark relative overflow-hidden" id="about">
     <div class="absolute left-0 bottom-0 w-64 h-64 bg-primary/5 rounded-tr-full"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1179,6 +1368,40 @@
             addToCart(product);
         }
     });
+
+    // Slider Logic
+    const slider = document.getElementById('product-slider');
+    const prevBtn = document.getElementById('slider-prev');
+    const nextBtn = document.getElementById('slider-next');
+
+    if (slider && prevBtn && nextBtn) {
+        const getScrollAmount = () => {
+            const firstItem = slider.querySelector('.flex-none');
+            return firstItem ? firstItem.offsetWidth + 24 : 300;
+        };
+
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+
+        const toggleButtons = () => {
+            prevBtn.style.opacity = slider.scrollLeft <= 5 ? '0.5' : '1';
+            prevBtn.style.pointerEvents = slider.scrollLeft <= 5 ? 'none' : 'auto';
+
+            const isEnd = slider.scrollLeft + slider.offsetWidth >= slider.scrollWidth - 10;
+            nextBtn.style.opacity = isEnd ? '0.5' : '1';
+            nextBtn.style.pointerEvents = isEnd ? 'none' : 'auto';
+        };
+
+        slider.addEventListener('scroll', toggleButtons);
+        window.addEventListener('resize', toggleButtons);
+        // Initial check with a small delay to ensure rendering is complete
+        setTimeout(toggleButtons, 100);
+    }
 
     // Initial render
     renderCart();
